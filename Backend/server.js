@@ -11,33 +11,48 @@ import 'dotenv/config';
 const app = express();
 const port = process.env.PORT || 4000;
 
-// middleware
+// ✅ ALLOWED ORIGINS
+const allowedOrigins = [
+  "http://localhost:3000",               // frontend local
+  "http://localhost:3001",               // admin local
+  "https://foodxieee-frontend.onrender.com", // deployed frontend
+  "https://foodxieee-admin.onrender.com"     // deployed admin
+];
+
+// ✅ middleware
 app.use(express.json());
 
-// ✅ CORRECT CORS CONFIG for frontend on Render
+// ✅ CORS CONFIGURATION
 app.use(cors({
-  origin: "https://foodxieee-frontend.onrender.com",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("❌ CORS not allowed for this origin"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
-// connect database
+// ✅ connect database
 connectDB();
 
-// static image serving
+// ✅ serve static image files
 app.use('/images', express.static('uploads'));
 
-// API endpoints
+// ✅ API endpoints
 app.use('/api/food', foodRouter);
 app.use('/api/user', userRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/order', orderRouter);
 
+// test route
 app.get('/', (req, res) => {
-  res.send('Hello World from backend!');
+  res.send('🚀 Backend is running');
 });
 
-// start server
+// ✅ start server
 app.listen(port, () => {
   console.log(`✅ Server is running at http://localhost:${port}`);
 });
