@@ -8,7 +8,7 @@ import Home from "./pages/Home/Home.jsx"
 import Footer from "./components/Footer/Footer.jsx"
 import LoginPopup from "./components/LoginPopup/LoginPopup.jsx"
 import Verify from "./pages/verify/Verify.jsx"
-import MyOrders from "./pages/myOrders/myOrders.jsx"
+import MyOrders from "./pages/myOrders/MyOrders.jsx"
 
 function App() {
   const [showLogin,setShowLogin] = useState(false)
