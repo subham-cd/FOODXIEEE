@@ -3,14 +3,14 @@ import './Order.css';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
-import { assets } from "../../assets/assets.js";
+import { assets, url } from "../../assets/assets.js";  // ✅ import url here
 
-const Order = ({ url }) => {
+const Order = () => {  // ⛔ removed ({ url }) from here
   const [orders, setOrders] = useState([]);
 
   const fetchAllorders = async () => {
     try {
-      const response = await axios.get(url + "/api/order/list");
+      const response = await axios.get(`${url}/api/order/list`); // ✅ template literal
       if (response.data.success) {
         setOrders(response.data.data);
         console.log(response.data.data);
@@ -25,7 +25,7 @@ const Order = ({ url }) => {
 
   const statusHandler = async (e, orderId) => {
     try {
-      const response = await axios.post(url + "/api/order/status", {
+      const response = await axios.post(`${url}/api/order/status`, {
         orderId,
         status: e.target.value
       });
