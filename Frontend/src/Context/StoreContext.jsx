@@ -8,7 +8,7 @@ const StoreContextProvider = (props) => {
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
 
-  const url = "http://localhost:4000";
+  const url = "https://foodxieee-backend.onrender.com";
 
   // ✅ Load token and fetch data on initial load
   useEffect(() => {
